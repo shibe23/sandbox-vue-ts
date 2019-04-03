@@ -7,12 +7,31 @@
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import ProductList from "@/components/PdroductList.vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   name: "home",
   components: {
-    HelloWorld
+    ProductList
+  },
+  computed: mapState({
+    products: state => state.ProductList.products,
+  }),
+  methods: {
+    fetchProducts() {
+      this.$store.dispatch("ProductList/FETCH_PRODUCTS");
+    },
+
+    getTotal(products) {
+      return products.reduce((accum, current) => {
+        accum + current;
+      });
+    },
+
+    onclick() {
+      console.log(this.$store);
+    }
   }
 });
 </script>
