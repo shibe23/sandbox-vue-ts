@@ -1,6 +1,15 @@
 import { fetchProducts } from "../api";
 
-export const state = {
+interface state {
+  products: Array<{
+    id: number
+    name: string
+    price: number
+    stock: number 
+  }>
+}
+
+export const state: state = {
   products: []
 };
 export const getters = {
