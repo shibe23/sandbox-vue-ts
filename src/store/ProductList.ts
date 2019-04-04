@@ -1,6 +1,6 @@
 import { fetchProducts } from "../api";
 
-interface state {
+interface State {
   products: Array<{
     id: number
     name: string
@@ -9,7 +9,7 @@ interface state {
   }>
 }
 
-export const state: state = {
+export const state: State = {
   products: []
 };
 export const getters = {
