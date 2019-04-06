@@ -1,9 +1,4 @@
 import { fetchProducts } from "../api";
-import {
-  DefineActions,
-  DefineGetters,
-  DefineMutations
-} from "vuex-type-helper";
 export interface State {
   products: Array<{
     id: number;
@@ -13,31 +8,35 @@ export interface State {
   }>;
 }
 
+export interface Context {
+  commit: (name: string, payload?: any) => void;
+}
+
 export interface Getters {
-  getAllProducts: {};
+  [key: string]: (state: State) => void;
 }
 
 export interface Mutations {
-  SET_ITEMS: State
+  [key: string]: (state: State, payload?: any) => void;
 }
 export interface Actions {
-  FETCH_PRODUCTS: void
+  [key: string]: (context: Context, payload?: any) => void;
 }
 
 export const state: State = {
   products: []
 };
-export const getters: DefineGetters<Getters, State> = {
+export const getters: Getters = {
   getAllProducts: state => {
     return state.products;
   }
 };
-export const mutations: DefineMutations<Mutations, State> = {
+export const mutations: Mutations = {
   SET_ITEMS: (state, payload) => {
     state.products = payload.products;
   }
 };
-export const actions: DefineActions<Actions, State, Mutations, Getters> = {
+export const actions: Actions = {
   FETCH_PRODUCTS: async ({ commit }) => {
     const res = await fetchProducts();
     commit("SET_ITEMS", res.data);
